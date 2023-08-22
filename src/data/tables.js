@@ -1,14 +1,14 @@
 const tables = [ 
-    "Categories",
-    "Customers",
-    "Employee_territories",
-    "Employees",
-    "Order_details",
-    "Orders",
-    "Products",
-    "Regions",
-    "Shippers",
-    "Suppliers",
-    "Territories"
+    "categories",
+    "customers",
+    "employee_territories",
+    "employees",
+    "order_details",
+    "orders",
+    "products",
+    "regions",
+    "shippers",
+    "suppliers",
+    "territories"
 ];
 export {tables};
