@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useMemo } from 'react'
 import { CodeContext } from '../../context/CodeContext/CodeContext';
 import './CodeController.css';
-
+import { fetchCSVData } from '../../services/csv/csv';
 function CodeController() {
-    const { query, setQuery } = useContext(CodeContext);
+    const { query, setQuery , setTableData } = useContext(CodeContext);
 
     const handleSubmit = () => {
         let str = "";
@@ -20,7 +20,16 @@ function CodeController() {
             }
         }
         console.log(tableName);
-        // fetchCSVData();
+
+        fetchCSVData(tableName)
+        .then((res)=>{
+            setTableData(res);
+        })
+        .catch((err)=>{
+            console.log("--------------------");
+            console.log(err);
+            console.log("--------------------");
+        });
     }
     const handleClear = () => {
         setQuery("");
