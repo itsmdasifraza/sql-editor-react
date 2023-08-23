@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import './OutputTable.css'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -68,7 +68,37 @@ const OutputTable = ({ table }) => {
         });
     };
 
+    // Pagination initialization
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+
+    // Handling page change.
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
     
+    // Handling row change.
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
+    // On selecting different table reset page to 0.
+    useEffect(()=>{
+        setPage(0);
+    },[table]);
+
+    // Limit table data to fixed number of rows for pagination.
+    const slicedTable = useMemo(
+        () =>{
+            [...table].slice(
+                page * rowsPerPage,
+                page * rowsPerPage + rowsPerPage,
+              ),
+            [page, rowsPerPage, table]
+        }
+    );
+
     return (
         <div>{table.length > 0 ? (
             <div>
@@ -82,7 +112,15 @@ const OutputTable = ({ table }) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                
+                <TablePagination
+                    rowsPerPageOptions={[10, 20, 30, 40, 50]}
+                    component="div"
+                    count={table.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
             </div>
         ) : null}</div>
     )
