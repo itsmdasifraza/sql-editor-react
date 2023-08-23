@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useState } from 'react'
 import './OutputTable.css'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,15 +8,17 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import TablePagination from '@mui/material/TablePagination';
+import { PaginationContainer } from '../PaginationContainer/PaginationContainer';
 
 /**
- * Populating table for CSV data coming from Github.
+ * Populate table for CSV data coming from Github.
  * @param {Array<Object>} table - An array of table objects which will be shown on the UI.
  * @return {JSXElement} MUI JSX table container element.
- */
+*/
 
 const OutputTable = ({ table }) => {
+
+    const [slicedTable, setSlicedTable] = useState([]);
 
     // MUI custom styling of table cell container.
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -68,37 +70,6 @@ const OutputTable = ({ table }) => {
         });
     };
 
-    // Pagination initialization
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-
-    // Handling page change.
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-    
-    // Handling row change.
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
-    // On selecting different table reset page to 0.
-    useEffect(()=>{
-        setPage(0);
-    },[table]);
-
-    // Limit table data to fixed number of rows for pagination.
-    const slicedTable = useMemo(
-        () =>{
-            [...table].slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage,
-              ),
-            [page, rowsPerPage, table]
-        }
-    );
-
     return (
         <div>{table.length > 0 ? (
             <div>
@@ -112,15 +83,7 @@ const OutputTable = ({ table }) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[10, 20, 30, 40, 50]}
-                    component="div"
-                    count={table.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
+                <PaginationContainer table={table} setSlicedTable = {setSlicedTable}/>
             </div>
         ) : null}</div>
     )
