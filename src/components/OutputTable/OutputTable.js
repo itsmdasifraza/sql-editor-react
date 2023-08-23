@@ -13,7 +13,7 @@ import { PaginationContainer } from '../PaginationContainer/PaginationContainer'
 /**
  * Populate table for CSV data coming from Github.
  * @param {Array<Object>} table - An array of table objects which will be shown on the UI.
- * @return {JSXElement} MUI JSX table container element.
+ * @return {JSX.Element} MUI JSX table container element.
 */
 
 const OutputTable = ({ table }) => {

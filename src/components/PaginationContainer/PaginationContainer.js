@@ -4,11 +4,11 @@ import TablePagination from '@mui/material/TablePagination';
 /**
  * Display pagination below output table.
  * @param {Array<Object>} table - An array of table objects used to slice into pagination.
- * @return {JSXElement} MUI JSX pagination container element.
+ * @return {JSX.Element} MUI JSX pagination container element.
 */
 
 const PaginationContainer = ({table , setSlicedTable}) => {
-    
+
     // Pagination initialization
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);

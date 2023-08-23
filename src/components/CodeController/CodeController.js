@@ -1,8 +1,14 @@
-import React, { useContext, useState, useMemo } from 'react'
+import React, { useContext } from 'react'
 import { CodeContext } from '../../context/CodeContext/CodeContext';
 import './CodeController.css';
 import { fetchCSVData } from '../../services/csv/csv';
-function CodeController() {
+
+/**
+ * Display submit and clear button on UI.
+ * @return {JSX.Element} Controller part of code editor.
+*/
+
+const CodeController = ({ setOpen }) => {
     const { query, setQuery , setTableData } = useContext(CodeContext);
 
     const handleSubmit = () => {
@@ -19,16 +25,15 @@ function CodeController() {
                 tableName = splittedQuery[i + 1];
             }
         }
-        console.log(tableName);
-
+        setOpen(true);
         fetchCSVData(tableName)
         .then((res)=>{
             setTableData(res);
+            setOpen(false);
         })
         .catch((err)=>{
-            console.log("--------------------");
-            console.log(err);
-            console.log("--------------------");
+            console.error(err);
+            setOpen(false);
         });
     }
     const handleClear = () => {
