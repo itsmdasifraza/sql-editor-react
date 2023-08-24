@@ -14,14 +14,15 @@ function SqlEditor() {
   return (
     <div className='sql-editor'>
       <CodeContext.Provider value = {{query, setQuery, setTableData}}>
-        <Grid2 container spacing={0} >
+        <Grid2 container spacing={3} >
             <Grid2 xs={12} sm={3} md={3} >
                 <Sidebar/>
             </Grid2>
             <Grid2 xs={12} sm={9} md={9} >
               <CodeEditor/>
               <CodeController/>
-              <OutputTable table={tableData}/>
+              {tableData && tableData.length > 0 ? <><h3 className="table-heading">Table Data</h3><OutputTable table={tableData}/></>  : <></>}
+              
             </Grid2>
         </Grid2>
       </CodeContext.Provider>
