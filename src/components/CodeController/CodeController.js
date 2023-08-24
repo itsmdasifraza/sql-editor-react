@@ -38,7 +38,7 @@ const CodeController = () => {
                 setBackdropOpen(false);
             })
             .catch((err)=>{
-                triggerSnackbar(3000, err, "error", { vertical: 'bottom', horizontal: 'left' });
+                triggerSnackbar(3000, err, "error", { vertical: 'bottom', horizontal: 'right' });
                 setTableData([]);
                 setBackdropOpen(false);
             });
@@ -47,7 +47,7 @@ const CodeController = () => {
             });
         }
         else{
-            triggerSnackbar(3000, "Please enter valid query!","error", { vertical: 'bottom', horizontal: 'left' });
+            triggerSnackbar(3000, "Please enter valid query!","error", { vertical: 'bottom', horizontal: 'right' });
         }
     }
     const handleQueryClear = () => {

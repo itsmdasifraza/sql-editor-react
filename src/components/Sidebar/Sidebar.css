@@ -6,17 +6,17 @@
     max-height: calc(100vh - 150px);
     overflow-y: scroll;
 }
-.sidebar .sidebar__table--head{
+.sidebar .sidebar__section--head{
     padding: 10px 15px;
     margin: 0;
     border-left: 5px solid #6ae6f4;
     margin-bottom: 8px;
 }
-.sidebar__table--body{
+.sidebar__section--body{
     max-height: 160px;
     overflow-y: scroll;
 }
-.sidebar .sidebar__table--element{
+.sidebar .sidebar__section--element{
     border-radius: 5px; 
     background-color: white;
     margin-left: 10px;
@@ -25,7 +25,7 @@
     margin-bottom: 5px;
     cursor: pointer;
 }
-.sidebar .sidebar__table--element .sidebar__table--para {
+.sidebar .sidebar__section--element .sidebar__section--para {
     margin: 0;
     display: flex;
     align-items: center;
@@ -33,7 +33,7 @@
     font-size: 14px;
     overflow: hidden;
 }
-.sidebar .sidebar__table--para .table-icon{
+.sidebar .sidebar__section--para .section-icon{
     font-size: 14px !important;
     margin-right: 5px;
 }
