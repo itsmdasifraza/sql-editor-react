@@ -43,7 +43,13 @@ const CodeController = () => {
                 setBackdropOpen(false);
             });
             setRecentQuery((prev)=>{
-                return [...prev, query];
+                if(prev.length > 0){
+                    const lastElem = [...prev].pop();
+                    if(lastElem === query) return [...prev];
+                    else return [...prev, query];
+                }else{
+                    return [...prev, query];
+                }
             });
         }
         else{

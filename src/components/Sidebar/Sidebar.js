@@ -7,15 +7,17 @@ import TerminalIcon from '@mui/icons-material/Terminal';
 import { CodeContext } from '../../context/CodeContext/CodeContext';
 
 /**
- * The sidebar layout displays the list of tables on which query will be performed.
- * @param {String} tableName - Name of the table shown on the UI
- * @returns {JSX.Element} 
+ * The sidebar layout displays a row in the section.
+ * @param {String} rowTitle - title to be given on each row.
+ * @param {String} rowIcon - icon to be placed on each row of a section.
+ * @param {String} parent - parent section of a row.
+ * @returns {JSX.Element} JSX row that should be shown on each section
  */
 
 const Row = ({rowTitle, rowIcon, parent}) => {
   const { setQuery } = useContext(CodeContext);
   
-  const handleTable = (rowTitle) => {
+  const handleRow = (rowTitle) => {
     if(parent === 'table'){
       setQuery(`SELECT * FROM '${rowTitle}';`);
     }
@@ -26,7 +28,7 @@ const Row = ({rowTitle, rowIcon, parent}) => {
    
   return (
     <div className="sidebar__section--element" 
-        onClick={()=>{handleTable(rowTitle);}}>
+        onClick={()=>{handleRow(rowTitle);}}>
         <p className="sidebar__section--para">
             {rowIcon}
             <span>{rowTitle}</span>
@@ -36,13 +38,16 @@ const Row = ({rowTitle, rowIcon, parent}) => {
 }  
 
 /**
- * The sidebar layout displays the list of tables on which query will be performed.
+ * The sidebar layout displays the list of sections.
  * @returns {JSX.Element} LHS Sidebar JSX element to display table and recent query.
  */
 const Sidebar = () => {
   const { recentQuery } = useContext(CodeContext);
   return (
     <section className="sidebar">
+        {/*
+         * Database table section.
+         */}
         <div className="sidebar__section">
             <h4 className="sidebar__section--head">Database Tables</h4>
             <div className="sidebar__section--body">
@@ -51,6 +56,9 @@ const Sidebar = () => {
               })}
             </div>
         </div>
+        {/*
+         * Reference query section.
+         */}
         <div className="sidebar__section">
             <h4 className="sidebar__section--head">Reference Query</h4>
             <div className="sidebar__section--body">
@@ -59,6 +67,9 @@ const Sidebar = () => {
               })}
             </div>
         </div>
+        {/*
+         * Recent query section. 
+         */}
         <div className="sidebar__section">
             <h4 className="sidebar__section--head">Recent Query</h4>
             <div className="sidebar__section--body">

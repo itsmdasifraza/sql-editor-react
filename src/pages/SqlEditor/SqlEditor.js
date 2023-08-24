@@ -22,7 +22,7 @@ function SqlEditor() {
             <Grid2 xs={12} sm={9} md={9} >
               <CodeEditor/>
               <CodeController/>
-              {tableData && tableData.length > 0 ? <><h3 className="table-heading">Table Data</h3><OutputTable table={tableData}/></>  : <></>}
+              {tableData && tableData.length > 0 ? <><br/><h3 className="table-heading">Table Data</h3><OutputTable table={tableData}/></>  : <></>}
               
             </Grid2>
         </Grid2>

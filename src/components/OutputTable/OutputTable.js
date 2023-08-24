@@ -72,7 +72,7 @@ const OutputTable = ({ table }) => {
 
     return (
         <div>
-            <TableContainer sx={{ maxHeight: 'calc(100vh - 325px)' }} component={Paper}>
+            <TableContainer sx={{ maxHeight: 'calc(100vh - 350px)' }} component={Paper}>
                 <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         {generateTableHead(slicedTable)}

@@ -13,7 +13,7 @@
     margin-bottom: 8px;
 }
 .sidebar__section--body{
-    max-height: 160px;
+    max-height: 200px;
     overflow-y: scroll;
 }
 .sidebar .sidebar__section--element{
