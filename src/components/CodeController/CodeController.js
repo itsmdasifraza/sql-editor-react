@@ -1,11 +1,19 @@
 import React, { useContext } from 'react'
 import { CodeContext } from '../../context/CodeContext/CodeContext';
 import './CodeController.css';
+import { fetchCSVData } from '../../services/csv/csv';
+import { GlobalContext } from '../../context/GlobalContext/GlobalContext';
 
-function CodeController() {
-    const { query, setQuery } = useContext(CodeContext);
+/**
+ * Display submit and clear button on UI.
+ * @return {JSX.Element} Controller part of code editor.
+*/
 
-    const handleSubmit = () => {
+const CodeController = () => {
+    const { query, setQuery , setTableData } = useContext(CodeContext);
+    const { setBackdropOpen, triggerSnackbar } = useContext(GlobalContext);
+
+    const handleQuerySubmit = () => {
         let str = "";
         for(let i = 0; i < query.length; i++){
             if(query[i] !== "'" && query[i] !== "`" && query[i] !== ";" && query[i] !== '"'){
@@ -19,17 +27,27 @@ function CodeController() {
                 tableName = splittedQuery[i + 1];
             }
         }
-        console.log(tableName);
-        // fetchCSVData();
+        setBackdropOpen(true);
+        
+        fetchCSVData(tableName)
+        .then((res)=>{
+            setTableData(res);
+            setBackdropOpen(false);
+        })
+        .catch((err)=>{
+            triggerSnackbar(3000, err, "error", { vertical: 'top', horizontal: 'right' })
+            setTableData([]);
+            setBackdropOpen(false);
+        });
     }
-    const handleClear = () => {
+    const handleQueryClear = () => {
         setQuery("");
     }
 
     return (
         <div>
-            <button onClick={handleSubmit}>Execute</button>
-            <button onClick={handleClear}>Clear</button>
+            <button onClick={handleQuerySubmit}>Execute</button>
+            <button onClick={handleQueryClear}>Clear</button>
         </div>
     ) 
 }

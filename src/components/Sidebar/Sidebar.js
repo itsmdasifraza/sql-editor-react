@@ -6,13 +6,11 @@ import { CodeContext } from '../../context/CodeContext/CodeContext';
 
 /**
  * The sidebar layout displays the list of tables on which query will be performed.
- * @param {list of parameters are defined below}
- *  -  element (renamed as tableName) : name of the table
- * @returns {JSX.Element}
- * @constructor
+ * @param {String} tableName - Name of the table shown on the UI
+ * @returns {JSX.Element} 
  */
 
-const TableName = ({element : tableName}) => {
+const TableName = ({tableName}) => {
   const { setQuery } = useContext(CodeContext);
   
   const handleTable = (tableName) => {
@@ -32,17 +30,15 @@ const TableName = ({element : tableName}) => {
 
 /**
  * The sidebar layout displays the list of tables on which query will be performed.
- * @param void
- * @returns {JSX.Element}
- * @constructor
+ * @returns {JSX.Element} LHS Sidebar JSX element to display table and recent query.
  */
-let Sidebar = () => {
+const Sidebar = () => {
   return (
     <section className="sidebar">
         <div className="sidebar__table">
             <h4 className="sidebar__table--head">Tables</h4>
             {tables.map((element, index)=>{
-                return (<TableName key={index} element = {element} index = {index} />)
+                return (<TableName key={index} tableName = {element} />)
             })}
         </div>
     </section>
