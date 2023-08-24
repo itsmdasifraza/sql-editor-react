@@ -11,7 +11,7 @@ function Header() {
   return (
     <header className="header">
         <img className="header__logo" src={logo} alt="logo"/>
-        <h4 className="header__title">SQL Editor</h4>
+        <h3 className="header__title">SQL EDITOR</h3>
     </header>
   )
 }
