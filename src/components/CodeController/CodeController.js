@@ -35,7 +35,7 @@ const CodeController = () => {
             setBackdropOpen(false);
         })
         .catch((err)=>{
-            triggerSnackbar(3000, err, "error", { vertical: 'top', horizontal: 'right' })
+            triggerSnackbar(3000, err, "error", { vertical: 'bottom', horizontal: 'left' })
             setTableData([]);
             setBackdropOpen(false);
         });

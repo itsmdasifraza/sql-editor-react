@@ -71,21 +71,19 @@ const OutputTable = ({ table }) => {
     };
 
     return (
-        <div>{table.length > 0 ? (
-            <div>
-                <TableContainer sx={{ maxHeight: '500px' }} component={Paper}>
-                    <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead>
-                            {generateTableHead(slicedTable)}
-                        </TableHead>
-                        <TableBody>
-                            {generateTableBody(slicedTable)}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <PaginationContainer table={table} setSlicedTable = {setSlicedTable}/>
-            </div>
-        ) : null}</div>
+        <div>
+            <TableContainer sx={{ maxHeight: '500px' }} component={Paper}>
+                <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                        {generateTableHead(slicedTable)}
+                    </TableHead>
+                    <TableBody>
+                        {generateTableBody(slicedTable)}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <PaginationContainer table={table} setSlicedTable = {setSlicedTable}/>
+        </div>
     )
 }
 
