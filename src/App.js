@@ -5,6 +5,7 @@ import { SqlEditor } from './pages/SqlEditor/SqlEditor';
 import { GlobalContext } from './context/GlobalContext/GlobalContext';
 import { Backdrop } from './common/Backdrop/Backdrop';
 import { Snackbar } from './common/Snackbar/Snackbar';
+import { Header } from './common/Header/Header';
 
 const App = () => {
   
@@ -37,8 +38,9 @@ const App = () => {
 
   return (
     <GlobalContext.Provider value={{ setBackdropOpen, triggerSnackbar }}>
+      <Header/>
       <Routes>
-        <Route path="/" element={<SqlEditor />} />
+        <Route path="/" element={<SqlEditor/>} />
       </Routes>
       <Backdrop backdropOpen={backdropOpen} />
       <Snackbar snackbarOrigin={snackbarOrigin} snackbarOpen={snackbarOpen} snackbarMssg={snackbarMssg} handleSnackbarClose={handleSnackbarClose} snackbarDuration={snackbarDuration} snackbarSeverity={snackbarSeverity} />
