@@ -9,6 +9,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { PaginationContainer } from '../PaginationContainer/PaginationContainer';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import { Button } from '../../common/Button/Button';
 
 /**
  * Populate table on the screen coming from Github.
@@ -77,10 +79,25 @@ const OutputTable = ({ table }) => {
         });
     }, [slicedTable]);
 
+    const handleTableDownload = () => {
+        const data = JSON.stringify(table);
+        const blob = new Blob([data], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${table.name}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
     return (
-        <>{table && table.length > 0 ?
+        <>{table.data && table.data.length !== 0 ?
             <div>
-                <br /><h3 className="table-heading">Table Data</h3>
+                <br />
+                <div className='download-controller'>
+                    <h3 className="table-heading">{table.name}</h3>
+                    <Button onClick={handleTableDownload} title="Download Table" icon = {<FileDownloadIcon sx={{fontSize:18}}/>} />
+                </div>
                 <div>
                     <TableContainer sx={{ maxHeight: 'calc(100vh - 350px)' }} component={Paper}>
                         <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">

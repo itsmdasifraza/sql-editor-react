@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import './Sidebar.css';
 import { tables } from '../../data/tables';
 import { query } from '../../data/query';
-import TableChartIcon from '@mui/icons-material/TableChart';
+import TocIcon from '@mui/icons-material/Toc';
 import TerminalIcon from '@mui/icons-material/Terminal';
 import HistoryIcon from '@mui/icons-material/History';
 import { Row } from './Row/Row';
@@ -20,7 +20,7 @@ const Sidebar = ({ recentQuery , setQuery }) => {
    */
   const databseTableRows = useMemo(() => {
     return tables.map((element, index) => (
-      <Row key={index} rowTitle={element} rowIcon={<TableChartIcon className="section-icon"/>} rowParent="table" setQuery = { setQuery } />
+      <Row key={index} rowTitle={element} rowIcon={<TocIcon className="section-icon"/>} rowParent="table" setQuery = { setQuery } />
     ));
   }, [setQuery]);
 
@@ -29,7 +29,7 @@ const Sidebar = ({ recentQuery , setQuery }) => {
    */
   const referenceQueryRows = useMemo(() => {
     return query.map((element, index) => (
-      <Row key={index} rowTitle={element} rowIcon={<TerminalIcon className="section-icon"/>} rowParent="query" setQuery = { setQuery } />
+      <Row key={index} rowTitle={element} rowIcon={<TerminalIcon className="section-icon"/>} rowParent="reference_query" setQuery = { setQuery } />
     ));
   }, [setQuery]);
 
