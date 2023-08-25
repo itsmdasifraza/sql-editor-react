@@ -1,5 +1,6 @@
 import React, {useMemo, useEffect, useState} from 'react'
 import TablePagination from '@mui/material/TablePagination';
+import './PaginationContainer.css';
 
 /**
  * Display pagination below output table.
@@ -43,15 +44,17 @@ const PaginationContainer = ({table , setSlicedTable}) => {
     },[slicedTable, setSlicedTable]);
 
     return (
-        <TablePagination
-            rowsPerPageOptions={[25, 50, 100, 500, 1000]}
-            component="div"
-            count={table.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        <div className='custom-pagination'>
+            <TablePagination
+                rowsPerPageOptions={[25, 50, 100, 500, 1000]}
+                component="div"
+                count={table.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+        </div>
     )
 }
 
