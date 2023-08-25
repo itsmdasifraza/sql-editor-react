@@ -32,7 +32,7 @@ const CodeController = ({ query, setQuery , setTableData, setRecentQuery }) => {
             
             fetchCSVData(tableName)
             .then((res)=>{
-                setTableData(res);
+                setTableData({name:tableName, data: res});
                 triggerSnackbar(3000, "Table fetched successfully!", "success", { vertical: 'bottom', horizontal: 'right' });
                 setBackdropOpen(false);
             })

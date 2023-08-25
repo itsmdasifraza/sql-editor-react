@@ -84,17 +84,17 @@ const OutputTable = ({ table }) => {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'data.json';
+        a.download = `${table.name}.json`;
         a.click();
         URL.revokeObjectURL(url);
     }
 
     return (
-        <>{table && table.length !== 0 ?
+        <>{table.data && table.data.length !== 0 ?
             <div>
                 <br />
                 <div className='download-controller'>
-                    <h3 className="table-heading">Table Data</h3>
+                    <h3 className="table-heading">{table.name}</h3>
                     <button onClick={handleTableDownload}><span>Download Table</span><FileDownloadIcon sx={{fontSize:18}}/></button>
                 </div>
                 <div>

@@ -11,7 +11,7 @@ import { Loader } from '../../components/Loader/Loader';
 function SqlEditor() {
   const [ query, setQuery ] = useState(`SELECT * FROM '${tables[5]}';`);
   const [ recentQuery, setRecentQuery ] = useState([]);
-  const [ tableData, setTableData ] = useState([]);
+  const [ tableData, setTableData ] = useState({name:"", data:[]});
   
   return (
     <div className='sql-editor'>
