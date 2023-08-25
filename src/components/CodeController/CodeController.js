@@ -4,6 +4,7 @@ import { fetchCSVData } from '../../services/csv/csv';
 import { GlobalContext } from '../../context/GlobalContext/GlobalContext';
 import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Button } from '../../common/Button/Button';
 
 /**
  * Display submit and clear button on UI.
@@ -32,12 +33,12 @@ const CodeController = ({ query, setQuery , setTableData, setRecentQuery }) => {
             
             fetchCSVData(tableName)
             .then((res)=>{
-                setTableData(res);
+                setTableData({name:tableName, data: res});
+                triggerSnackbar(3000, "Table fetched successfully!", "success", { vertical: 'bottom', horizontal: 'right' });
                 setBackdropOpen(false);
             })
             .catch((err)=>{
                 triggerSnackbar(3000, err, "error", { vertical: 'bottom', horizontal: 'right' });
-                setTableData([]);
                 setBackdropOpen(false);
             });
             setRecentQuery((prev)=>{
@@ -60,8 +61,8 @@ const CodeController = ({ query, setQuery , setTableData, setRecentQuery }) => {
 
     return (
         <div className="editor-controller">
-            <button onClick={handleQuerySubmit}><span>Execute Query</span><SendIcon sx={{fontSize:15}}/></button>
-            <button onClick={handleQueryClear}><span>Clear Query</span><DeleteIcon sx={{fontSize:15}}/></button>
+            <Button onClick={handleQuerySubmit} title="Execute Query" icon={<SendIcon sx={{fontSize:15}}/>}/><div className='button-space'></div>
+            <Button onClick={handleQueryClear} title="Clear Query" icon={<DeleteIcon sx={{fontSize:15}}/>}/>
         </div>
     ) 
 }

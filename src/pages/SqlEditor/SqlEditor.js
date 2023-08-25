@@ -6,31 +6,33 @@ import { CodeController } from '../../components/CodeController/CodeController';
 import Grid2 from '@mui/material/Unstable_Grid2';
 import { tables } from '../../data/tables';
 import { OutputTable } from '../../components/OutputTable/OutputTable';
+import { Loader } from '../../components/Loader/Loader';
 
 function SqlEditor() {
-  const [ query, setQuery ] = useState(`SELECT * FROM '${tables[0]}';`);
+  const [ query, setQuery ] = useState(`SELECT * FROM '${tables[5]}';`);
   const [ recentQuery, setRecentQuery ] = useState([]);
-  const [ tableData, setTableData ] = useState([]);
+  const [ tableData, setTableData ] = useState({name:"", data:[]});
   
   return (
     <div className='sql-editor'>
         <Grid2 container spacing={3} >
-            <Grid2 xs={12} sm={3} md={3} >
+            <Grid2 xs={12} sm={12} md={3} >
               <Sidebar 
-                recentQuery = { recentQuery } 
-                setQuery = { setQuery } />
+                recentQuery = {recentQuery} 
+                setQuery = {setQuery} />
             </Grid2>
-            <Grid2 xs={12} sm={9} md={9} >
+            <Grid2 xs={12} sm={12} md={9} >
               <CodeEditor 
-                query = { query } 
-                setQuery = { setQuery } />
+                query = {query} 
+                setQuery = {setQuery} />
               <CodeController 
-                query = { query } 
-                setQuery = { setQuery } 
-                setTableData = { setTableData } 
-                setRecentQuery = { setRecentQuery } />
+                query = {query} 
+                setQuery = {setQuery} 
+                setTableData = {setTableData} 
+                setRecentQuery = {setRecentQuery} />
               <OutputTable 
-                table={tableData}/>
+                table = {tableData} />
+              <Loader table = {tableData} />
             </Grid2>
         </Grid2>
     </div>

@@ -1,0 +1,31 @@
+.sql-loader{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sql-loader__head{
+    color: white;
+    font-size: 30px;
+    font-weight: bolder;
+    margin-bottom: 0;
+}
+
+@media only screen and (min-width: 900px){
+    .sql-loader{
+        height: 400px;
+        flex-direction: row;
+        align-items: flex-end;
+    }
+    
+    .sql-loader__head{
+        font-size: 40px;
+    }
+}
+
+@media only screen and (min-width: 1200px){
+    .sql-loader__head{
+        font-size: 70px;
+    }
+}
