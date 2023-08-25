@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import { PaginationContainer } from '../PaginationContainer/PaginationContainer';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import { Button } from '../../common/Button/Button';
 
 /**
  * Populate table on the screen coming from Github.
@@ -95,7 +96,7 @@ const OutputTable = ({ table }) => {
                 <br />
                 <div className='download-controller'>
                     <h3 className="table-heading">{table.name}</h3>
-                    <button onClick={handleTableDownload}><span>Download Table</span><FileDownloadIcon sx={{fontSize:18}}/></button>
+                    <Button onClick={handleTableDownload} title="Download Table" icon = {<FileDownloadIcon sx={{fontSize:18}}/>} />
                 </div>
                 <div>
                     <TableContainer sx={{ maxHeight: 'calc(100vh - 350px)' }} component={Paper}>

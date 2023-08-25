@@ -6,19 +6,3 @@
     align-items: center;
     justify-content: space-between;
 }
-.download-controller button{
-    height: 20px;
-    display: flex;
-    align-items: center;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    color: white;
-    font-size: 16px;
-    padding-top: 15px;
-    padding-left: 0;
-}
-.download-controller button span{
-    margin-right: 5px;
-}
