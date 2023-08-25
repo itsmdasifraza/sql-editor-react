@@ -5,39 +5,13 @@ import { query } from '../../data/query';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import TerminalIcon from '@mui/icons-material/Terminal';
 import HistoryIcon from '@mui/icons-material/History';
-/**
- * The sidebar layout displays a row in the section.
- * @param {String} rowTitle - title to be given on each row.
- * @param {String} rowIcon - icon to be placed on each row of a section.
- * @param {String} parent - parent section of a row.
- * @returns {JSX.Element} JSX row that should be shown on each section
- */
-
-const Row = ({ rowTitle, rowIcon, parent, setQuery }) => {
-
-  const handleRow = (rowTitle) => {
-    if (parent === 'table') {
-      setQuery(`SELECT * FROM '${rowTitle}';`);
-    }
-    else {
-      setQuery(rowTitle);
-    }
-  }
-
-  return (
-    <div className="sidebar__section--element"
-      onClick={() => { handleRow(rowTitle); }}>
-      <p className="sidebar__section--para">
-        {rowIcon}
-        <span>{rowTitle}</span>
-      </p>
-    </div>
-  );
-}
+import { Row } from './Row/Row';
 
 /**
- * The sidebar layout displays the list of sections.
- * @returns {JSX.Element} LHS Sidebar JSX element to display table and recent query.
+ * The sidebar layout displays the list of sections like database table, reference query, recent query.
+ * @param {array} recentQuery - List of searched query.
+ * @param {function} setQuery - Function to update value of query.
+ * @returns {JSX.Element} Sidebar JSX element.
  */
 const Sidebar = ({ recentQuery , setQuery }) => {
 
@@ -46,7 +20,7 @@ const Sidebar = ({ recentQuery , setQuery }) => {
    */
   const databseTableRows = useMemo(() => {
     return tables.map((element, index) => (
-      <Row key={index} rowTitle={element} rowIcon={<TableChartIcon className="section-icon"/>} parent="table" setQuery = { setQuery } />
+      <Row key={index} rowTitle={element} rowIcon={<TableChartIcon className="section-icon"/>} rowParent="table" setQuery = { setQuery } />
     ));
   }, [setQuery]);
 
@@ -55,7 +29,7 @@ const Sidebar = ({ recentQuery , setQuery }) => {
    */
   const referenceQueryRows = useMemo(() => {
     return query.map((element, index) => (
-      <Row key={index} rowTitle={element} rowIcon={<TerminalIcon className="section-icon"/>} parent="query" setQuery = { setQuery } />
+      <Row key={index} rowTitle={element} rowIcon={<TerminalIcon className="section-icon"/>} rowParent="query" setQuery = { setQuery } />
     ));
   }, [setQuery]);
 
@@ -64,7 +38,7 @@ const Sidebar = ({ recentQuery , setQuery }) => {
    */
   const recentQueryRows = useMemo(() => {
     return recentQuery.map((element, index) => (
-      <Row key={index} rowTitle={element} rowIcon={<HistoryIcon className="section-icon"/>} parent="recent_query" setQuery = {setQuery} />
+      <Row key={index} rowTitle={element} rowIcon={<HistoryIcon className="section-icon"/>} rowParent="recent_query" setQuery = {setQuery} />
     ));
   }, [recentQuery, setQuery]);
 
