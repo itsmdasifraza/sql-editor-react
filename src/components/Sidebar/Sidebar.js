@@ -1,10 +1,9 @@
-import React, { useContext, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import './Sidebar.css';
 import { tables } from '../../data/tables';
 import { query } from '../../data/query';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import TerminalIcon from '@mui/icons-material/Terminal';
-import { CodeContext } from '../../context/CodeContext/CodeContext';
 import HistoryIcon from '@mui/icons-material/History';
 /**
  * The sidebar layout displays a row in the section.
@@ -14,8 +13,7 @@ import HistoryIcon from '@mui/icons-material/History';
  * @returns {JSX.Element} JSX row that should be shown on each section
  */
 
-const Row = ({ rowTitle, rowIcon, parent }) => {
-  const { setQuery } = useContext(CodeContext);
+const Row = ({ rowTitle, rowIcon, parent, setQuery }) => {
 
   const handleRow = (rowTitle) => {
     if (parent === 'table') {
@@ -41,35 +39,34 @@ const Row = ({ rowTitle, rowIcon, parent }) => {
  * The sidebar layout displays the list of sections.
  * @returns {JSX.Element} LHS Sidebar JSX element to display table and recent query.
  */
-const Sidebar = () => {
-  const { recentQuery } = useContext(CodeContext);
+const Sidebar = ({ recentQuery , setQuery }) => {
 
   /*
    * Store memoize value of 'database table' section to prevent re-renders.
    */
   const databseTableRows = useMemo(() => {
     return tables.map((element, index) => (
-      <Row key={index} rowTitle={element} rowIcon={<TableChartIcon className="section-icon"/>} parent="table"/>
+      <Row key={index} rowTitle={element} rowIcon={<TableChartIcon className="section-icon"/>} parent="table" setQuery = { setQuery } />
     ));
-  }, []);
+  }, [setQuery]);
 
   /*
    * Store memoize value of 'reference query' section to prevent re-renders.
    */
   const referenceQueryRows = useMemo(() => {
     return query.map((element, index) => (
-      <Row key={index} rowTitle={element} rowIcon={<TerminalIcon className="section-icon"/>} parent="query"/>
+      <Row key={index} rowTitle={element} rowIcon={<TerminalIcon className="section-icon"/>} parent="query" setQuery = { setQuery } />
     ));
-  }, []);
+  }, [setQuery]);
 
   /*
    * Store memoize value of 'recent query' section to prevent re-renders.
    */
   const recentQueryRows = useMemo(() => {
     return recentQuery.map((element, index) => (
-      <Row key={index} rowTitle={element} rowIcon={<HistoryIcon className="section-icon"/>} parent="recent_query"/>
+      <Row key={index} rowTitle={element} rowIcon={<HistoryIcon className="section-icon"/>} parent="recent_query" setQuery = {setQuery} />
     ));
-  }, [recentQuery]);
+  }, [recentQuery, setQuery]);
 
   return (
     <section className="sidebar">

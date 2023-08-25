@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import { CodeContext } from '../../context/CodeContext/CodeContext';
 import './CodeController.css';
 import { fetchCSVData } from '../../services/csv/csv';
 import { GlobalContext } from '../../context/GlobalContext/GlobalContext';
@@ -11,8 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
  * @return {JSX.Element} Controller part of code editor.
 */
 
-const CodeController = () => {
-    const { query, setQuery , setTableData, setRecentQuery } = useContext(CodeContext);
+const CodeController = ({ query, setQuery , setTableData, setRecentQuery }) => {
     const { setBackdropOpen, triggerSnackbar } = useContext(GlobalContext);
 
     const handleQuerySubmit = () => {
