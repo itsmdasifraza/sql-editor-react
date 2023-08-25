@@ -1,3 +1,8 @@
 .table-heading{
     color: white;
 }
+.download-controller{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
