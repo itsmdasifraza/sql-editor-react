@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import './OutputTable.css'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,16 +11,17 @@ import { styled } from '@mui/material/styles';
 import { PaginationContainer } from '../PaginationContainer/PaginationContainer';
 
 /**
- * Populate table for CSV data coming from Github.
- * @param {Array<Object>} table - An array of table objects which will be shown on the UI.
+ * Populate table on the screen coming from Github.
+ * @param {Array} table - An array of table objects which will be displayed on the UI.
  * @return {JSX.Element} MUI JSX table container element.
 */
 
 const OutputTable = ({ table }) => {
-
     const [slicedTable, setSlicedTable] = useState([]);
 
-    // MUI custom styling of table cell container.
+    /*
+     * MUI custom styling of table cell container.
+     */
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: theme.palette.common.black,
@@ -31,7 +32,9 @@ const OutputTable = ({ table }) => {
         },
     }));
 
-    // MUI custom styling of table row container.
+    /*
+     * MUI custom styling of table row container.
+     */
     const StyledTableRow = styled(TableRow)(({ theme }) => ({
         '&:nth-of-type(odd)': {
             backgroundColor: theme.palette.action.hover,
@@ -42,9 +45,11 @@ const OutputTable = ({ table }) => {
         },
     }));
 
-    // Generate content for table head. 
-    const generateTableHead = (slicedTable) => {
-        const keys = Object.keys(table[0]);
+    /*
+     * Store memoize value of 'table head' to prevent re-renders.
+     */ 
+    const generateTableHead = useMemo(() => {
+        const keys = Object.keys(slicedTable.length ? slicedTable[0] : {});
         return (
             <TableRow>
                 {keys.map((item, index) => {
@@ -52,38 +57,45 @@ const OutputTable = ({ table }) => {
                 })}
             </TableRow>
         );
-    };
+    }, [slicedTable]);
 
-    // Generate content for table body.
-    const generateTableBody = (slicedTable) => {
-        const keys = Object.keys(table[0]);
+    /*
+     * Store memoize value of 'table body' to prevent re-renders.
+     */
+    const generateTableBody = useMemo(() => {
+        const keys = Object.keys(slicedTable.length ? slicedTable[0] : {});
         return slicedTable.map((row, parentIndex) => {
             return (
                 <StyledTableRow
                     key={parentIndex}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     {keys.map((item, childIndex) => {
-                        return (<StyledTableCell key={`${parentIndex}-${childIndex}`} component="th" scope="row">{row[item]}</StyledTableCell>);
+                        return (<StyledTableCell key={`${parentIndex}-${childIndex}`} component="th" scope="row">{row[item] ? row[item] : String(row[item])}</StyledTableCell>);
                     })}
                 </StyledTableRow>
             );
         });
-    };
+    }, [slicedTable]);
 
     return (
-        <div>
-            <TableContainer sx={{ maxHeight: 'calc(100vh - 350px)' }} component={Paper}>
-                <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        {generateTableHead(slicedTable)}
-                    </TableHead>
-                    <TableBody>
-                        {generateTableBody(slicedTable)}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <PaginationContainer table={table} setSlicedTable = {setSlicedTable}/>
-        </div>
+        <>{table && table.length > 0 ?
+            <div>
+                <br /><h3 className="table-heading">Table Data</h3>
+                <div>
+                    <TableContainer sx={{ maxHeight: 'calc(100vh - 350px)' }} component={Paper}>
+                        <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                                {generateTableHead}
+                            </TableHead>
+                            <TableBody>
+                                {generateTableBody}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <PaginationContainer table={table} setSlicedTable={setSlicedTable} />
+                </div>
+            </div> : null}
+        </>
     )
 }
 

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React from 'react'
 import { Controlled as CodeMirror } from "react-codemirror2";
 import "codemirror/addon/display/autorefresh";
 import "codemirror/keymap/sublime";
@@ -8,11 +8,9 @@ import "codemirror/theme/material-palenight.css";
 import "codemirror/mode/sql/sql";
 import "codemirror/keymap/sublime";
 import "codemirror/addon/hint/sql-hint.js";
-import { CodeContext } from '../../context/CodeContext/CodeContext';
 import './CodeEditor.css';
 
-const CodeEditor = () => {
-    const { query, setQuery } = useContext(CodeContext);
+const CodeEditor = ({ query, setQuery }) => {
 
     return (
         <CodeMirror
