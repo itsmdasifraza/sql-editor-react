@@ -78,7 +78,7 @@ const OutputTable = ({ table }) => {
     }, [slicedTable]);
 
     return (
-        <>{table && table.length > 0 ?
+        <>{table && table.length !== 0 ?
             <div>
                 <br /><h3 className="table-heading">Table Data</h3>
                 <div>

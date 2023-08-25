@@ -33,11 +33,11 @@ const CodeController = ({ query, setQuery , setTableData, setRecentQuery }) => {
             fetchCSVData(tableName)
             .then((res)=>{
                 setTableData(res);
+                triggerSnackbar(3000, "Table fetched successfully!", "success", { vertical: 'bottom', horizontal: 'right' });
                 setBackdropOpen(false);
             })
             .catch((err)=>{
                 triggerSnackbar(3000, err, "error", { vertical: 'bottom', horizontal: 'right' });
-                setTableData([]);
                 setBackdropOpen(false);
             });
             setRecentQuery((prev)=>{
