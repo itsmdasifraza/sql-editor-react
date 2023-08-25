@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import './OutputTable.css'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -43,8 +43,8 @@ const OutputTable = ({ table }) => {
     }));
 
     // Generate content for table head. 
-    const generateTableHead = (slicedTable) => {
-        const keys = Object.keys(table[0]);
+    const generateTableHead = useMemo(()=>{
+        const keys = Object.keys(slicedTable.length ? slicedTable[0] : {});
         return (
             <TableRow>
                 {keys.map((item, index) => {
@@ -52,11 +52,10 @@ const OutputTable = ({ table }) => {
                 })}
             </TableRow>
         );
-    };
-
+    },[slicedTable]);
     // Generate content for table body.
-    const generateTableBody = (slicedTable) => {
-        const keys = Object.keys(table[0]);
+    const generateTableBody = useMemo(()=>{
+        const keys = Object.keys(slicedTable.length ? slicedTable[0] : {});
         return slicedTable.map((row, parentIndex) => {
             return (
                 <StyledTableRow
@@ -68,17 +67,16 @@ const OutputTable = ({ table }) => {
                 </StyledTableRow>
             );
         });
-    };
-
+    }, [slicedTable]);
     return (
         <div>
             <TableContainer sx={{ maxHeight: 'calc(100vh - 350px)' }} component={Paper}>
                 <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
-                        {generateTableHead(slicedTable)}
+                        {generateTableHead}
                     </TableHead>
                     <TableBody>
-                        {generateTableBody(slicedTable)}
+                        {generateTableBody}
                     </TableBody>
                 </Table>
             </TableContainer>

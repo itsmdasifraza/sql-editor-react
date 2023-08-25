@@ -11,7 +11,7 @@ const PaginationContainer = ({table , setSlicedTable}) => {
 
     // Pagination initialization
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    const [rowsPerPage, setRowsPerPage] = useState(25);
 
     // Handling page change.
     const handleChangePage = (event, newPage) => {
@@ -30,23 +30,21 @@ const PaginationContainer = ({table , setSlicedTable}) => {
     },[table]);
 
     // Limit table data to fixed number of rows for pagination.
-    const slicedTable = useMemo(
-        () =>
-            [...table].slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage,
-              ),
-            [page, rowsPerPage, table]  
-    );
+    const slicedTable = useMemo(() =>{
+        return [...table].slice(
+            page * rowsPerPage,
+            page * rowsPerPage + rowsPerPage,
+        )
+    }, [page, rowsPerPage, table]);
     
     // Updating parent component sliced table 
-    useEffect(()=>{
-        setSlicedTable(slicedTable);
+    useEffect(()=>{                  
+        setSlicedTable(slicedTable);  
     },[slicedTable, setSlicedTable]);
 
     return (
         <TablePagination
-            rowsPerPageOptions={[10, 20, 30, 40, 50]}
+            rowsPerPageOptions={[25, 50, 100, 500, 1000]}
             component="div"
             count={table.length}
             rowsPerPage={rowsPerPage}
