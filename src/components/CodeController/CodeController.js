@@ -5,50 +5,56 @@ import { GlobalContext } from '../../context/GlobalContext/GlobalContext';
 import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button } from '../../common/Button/Button';
-
+import { splitQueryToList } from '../../utils/queryExtension';
 /**
  * Display submit and clear button on UI.
  * @return {JSX.Element} Controller part of code editor.
 */
-
+// const f
 const CodeController = ({ query, setQuery , setTableData, setRecentQuery }) => {
     const { setBackdropOpen, triggerSnackbar } = useContext(GlobalContext);
 
     const handleQuerySubmit = () => {
         if(query !== ""){
-            let str = "";
-            for(let i = 0; i < query.length; i++){
-                if(query[i] !== "'" && query[i] !== "`" && query[i] !== ";" && query[i] !== '"'){
-                    str += query[i];
-                }
-            }
-            let splittedQuery = str.split(" ");
+            let splittedQuery = splitQueryToList(query);
+            console.log(splittedQuery);
             let tableName = ""; 
-            for(let i = 0; i < splittedQuery.length; i++){
-                if(splittedQuery[i] === 'FROM'){
-                    tableName = splittedQuery[i + 1];
-                }
-            }
+            let whereClause = [];
+            
+            console.log(whereClause);
             setBackdropOpen(true);
             
             fetchCSVData(tableName)
             .then((res)=>{
+                if(whereClause.length === 3){
+                    let arr = res.filter((elem)=>{
+                        const [field, operator, value] = whereClause;
+                        console.log(elem[field]);
+                        if (operator === '>' && elem[field] > value) return true;
+                        if (operator === '<' && elem[field] < value) return true;
+                        if (operator === '==' && elem[field] == value) return true;
+                        if (operator === '!=' && elem[field] != value) return true;
+                        return false;
+                    });
+                    res = arr;
+                }
                 setTableData({name:tableName, data: res});
                 triggerSnackbar(3000, "Table fetched successfully!", "success", { vertical: 'bottom', horizontal: 'right' });
                 setBackdropOpen(false);
+                setRecentQuery((prev)=>{
+                    if(prev.length > 0){
+                        const lastElem = [...prev].pop();
+                        if(lastElem === query) return [...prev];
+                        else return [...prev, query];
+                    }else{
+                        return [...prev, query];
+                    }
+                });
+                
             })
             .catch((err)=>{
                 triggerSnackbar(3000, err, "error", { vertical: 'bottom', horizontal: 'right' });
                 setBackdropOpen(false);
-            });
-            setRecentQuery((prev)=>{
-                if(prev.length > 0){
-                    const lastElem = [...prev].pop();
-                    if(lastElem === query) return [...prev];
-                    else return [...prev, query];
-                }else{
-                    return [...prev, query];
-                }
             });
         }
         else{
