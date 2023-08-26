@@ -13,9 +13,9 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { Button } from '../../common/Button/Button';
 
 /**
- * Populate table on the screen coming from Github.
- * @param {Array} table - An array of table objects which will be displayed on the UI.
- * @return {JSX.Element} MUI JSX table container element.
+ * Populate table on the screen.
+ * @param {object} table - Stores table meta data and rows.
+ * @return {JSX.Element} Mui table container element.
 */
 
 const OutputTable = ({ table }) => {
@@ -79,15 +79,18 @@ const OutputTable = ({ table }) => {
         });
     }, [slicedTable]);
 
+    /*
+     * Handle download table.
+     */
     const handleTableDownload = () => {
         const data = JSON.stringify(table);
-        const blob = new Blob([data], { type: 'application/json' });
+        const blob = new Blob([data], { type: 'application/json' });  // Binary Large Object is a data type used to represent raw binary data.
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
         a.download = `${table.name}.json`;
-        a.click();
-        URL.revokeObjectURL(url);
+        a.click();   // Trigger download.
+        URL.revokeObjectURL(url);  // revoke resources associated with the object URL.
     }
 
     return (

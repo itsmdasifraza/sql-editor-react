@@ -10,6 +10,12 @@ import "codemirror/keymap/sublime";
 import "codemirror/addon/hint/sql-hint.js";
 import './CodeEditor.css';
 
+/**
+ * Display code editor to type SQL query.
+ * @param {string} query - Stores text from code editor.
+ * @param {function} setQuery - Sets query data.
+ * @return {JSX.Element} JSX code mirror editor.
+*/
 const CodeEditor = ({ query, setQuery }) => {
 
     return (
