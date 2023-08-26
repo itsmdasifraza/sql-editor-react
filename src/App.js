@@ -2,7 +2,7 @@ import './App.css';
 import React, { useState } from 'react';
 import { Route, Routes } from "react-router-dom"
 import { SqlEditor } from './pages/SqlEditor/SqlEditor';
-import { GlobalContext } from './context/GlobalContext/GlobalContext';
+import { GlobalContext } from './context/GlobalContext';
 import { Backdrop } from './common/Backdrop/Backdrop';
 import { Snackbar } from './common/Snackbar/Snackbar';
 import { Header } from './common/Header/Header';
