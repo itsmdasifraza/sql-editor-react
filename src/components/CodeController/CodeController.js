@@ -5,7 +5,7 @@ import { GlobalContext } from '../../context/GlobalContext/GlobalContext';
 import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button } from '../../common/Button/Button';
-import { splitQueryToList } from '../../utils/queryExtension';
+import { splitQueryToList, extractClause, whereClauseFilter } from '../../utils/queryExtension';
 /**
  * Display submit and clear button on UI.
  * @return {JSX.Element} Controller part of code editor.
@@ -17,23 +17,23 @@ const CodeController = ({ query, setQuery , setTableData, setRecentQuery }) => {
     const handleQuerySubmit = () => {
         if(query !== ""){
             let splittedQuery = splitQueryToList(query);
-            console.log(splittedQuery);
-            let tableName = ""; 
-            let whereClause = [];
+            let [tableName, whereClause] = extractClause(splittedQuery);
             
-            console.log(whereClause);
             setBackdropOpen(true);
-            
             fetchCSVData(tableName)
             .then((res)=>{
-                if(whereClause.length === 3){
+                whereClauseFilter(res, whereClause);
+                if(whereClause){
                     let arr = res.filter((elem)=>{
                         const [field, operator, value] = whereClause;
                         console.log(elem[field]);
+                        if (operator === '=' && elem[field] === value) return true;
                         if (operator === '>' && elem[field] > value) return true;
                         if (operator === '<' && elem[field] < value) return true;
-                        if (operator === '==' && elem[field] == value) return true;
-                        if (operator === '!=' && elem[field] != value) return true;
+                        if (operator === '>=' && elem[field] >= value) return true;
+                        if (operator === '<=' && elem[field] <= value) return true;
+                        if (operator === '<>' && elem[field] !== value) return true;
+                        if (operator === '!=' && elem[field] !== value) return true;
                         return false;
                     });
                     res = arr;
