@@ -1,6 +1,3 @@
-.custom-pagination .css-jtlhu6-MuiTablePagination-root, .custom-pagination .css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon {
-    color: white !important;
-}
-.custom-pagination .css-zylse7-MuiButtonBase-root-MuiIconButton-root.Mui-disabled{
-    color: rgb(167, 167, 167) !important;
+.black-select-icon{
+  color: white !important;
 }

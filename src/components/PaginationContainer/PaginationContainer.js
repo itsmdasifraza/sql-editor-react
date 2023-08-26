@@ -4,7 +4,7 @@ import './PaginationContainer.css';
 
 /**
  * Display pagination below output table.
- * @param {Array<Object>} table - An array of table objects used to slice into pagination.
+ * @param {Array} table - An array of table objects used to slice into pagination.
  * @return {JSX.Element} MUI JSX pagination container element.
 */
 
@@ -46,6 +46,12 @@ const PaginationContainer = ({table , setSlicedTable}) => {
     return (
         <div className='custom-pagination'>
             <TablePagination
+                classes={{
+                    selectIcon: 'black-select-icon',
+                }}
+                sx={{color:'white'}}
+                backIconButtonProps={{color: "primary"}}
+                nextIconButtonProps={{ color: "primary" }}
                 rowsPerPageOptions={[25, 50, 100, 500, 1000]}
                 component="div"
                 count={table.data.length}
