@@ -17,40 +17,30 @@ const CodeController = ({ query, setQuery , setTableData, setRecentQuery }) => {
     const handleQuerySubmit = () => {
         if(query !== ""){
             let splittedQuery = splitQueryToList(query);
+            console.log(splittedQuery)
             let [tableName, whereClause] = extractClause(splittedQuery);
             
             setBackdropOpen(true);
             fetchCSVData(tableName)
             .then((res)=>{
-                whereClauseFilter(res, whereClause);
-                if(whereClause){
-                    let arr = res.filter((elem)=>{
-                        const [field, operator, value] = whereClause;
-                        console.log(elem[field]);
-                        if (operator === '=' && elem[field] === value) return true;
-                        if (operator === '>' && elem[field] > value) return true;
-                        if (operator === '<' && elem[field] < value) return true;
-                        if (operator === '>=' && elem[field] >= value) return true;
-                        if (operator === '<=' && elem[field] <= value) return true;
-                        if (operator === '<>' && elem[field] !== value) return true;
-                        if (operator === '!=' && elem[field] !== value) return true;
-                        return false;
+                res = whereClauseFilter(res, whereClause);
+                if(res.length){
+                    setTableData({name:tableName, data: res});
+                    triggerSnackbar(3000, `${res.length} records fetched.`, "success", { vertical: 'bottom', horizontal: 'right' });
+                    
+                    setRecentQuery((prev)=>{
+                        if(prev.length > 0){
+                            const lastElem = [...prev].pop();
+                            if(lastElem === query) return [...prev];
+                            else return [...prev, query];
+                        }else{
+                            return [...prev, query];
+                        }
                     });
-                    res = arr;
+                }else{
+                    triggerSnackbar(3000, "No records found, try different query?","error" ,{ vertical: 'bottom', horizontal: 'right' });
                 }
-                setTableData({name:tableName, data: res});
-                triggerSnackbar(3000, "Table fetched successfully!", "success", { vertical: 'bottom', horizontal: 'right' });
                 setBackdropOpen(false);
-                setRecentQuery((prev)=>{
-                    if(prev.length > 0){
-                        const lastElem = [...prev].pop();
-                        if(lastElem === query) return [...prev];
-                        else return [...prev, query];
-                    }else{
-                        return [...prev, query];
-                    }
-                });
-                
             })
             .catch((err)=>{
                 triggerSnackbar(3000, err, "error", { vertical: 'bottom', horizontal: 'right' });
@@ -58,7 +48,7 @@ const CodeController = ({ query, setQuery , setTableData, setRecentQuery }) => {
             });
         }
         else{
-            triggerSnackbar(3000, "Please enter valid query!","error", { vertical: 'bottom', horizontal: 'right' });
+            triggerSnackbar(3000, "Please type any query, then execute.","error", { vertical: 'bottom', horizontal: 'right' });
         }
     }
     const handleQueryClear = () => {
