@@ -1,26 +1,32 @@
 import React, { useContext } from 'react'
 import './CodeController.css';
-import { fetchCSVData } from '../../services/csv/csv';
-import { GlobalContext } from '../../context/GlobalContext/GlobalContext';
+import { fetchCSVData } from '../../services/tableHttpRequest';
+import { GlobalContext } from '../../context/GlobalContext';
 import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button } from '../../common/Button/Button';
 import { splitQueryToList, extractClause, whereClauseFilter } from '../../utils/queryExtension';
+
 /**
- * Display submit and clear button on UI.
- * @return {JSX.Element} Controller part of code editor.
+ * Display submit and clear button on UI used to make API calls.
+ * @param {string} query - Stores text from code editor.
+ * @param {function} setQuery - Sets query data.
+ * @param {function} setTableData - Sets output table data.
+ * @param {function} setRecentQuery - Sets recent query data.
+ * @return {JSX.Element} JSX code controller.
 */
-// const f
 const CodeController = ({ query, setQuery , setTableData, setRecentQuery }) => {
     const { setBackdropOpen, triggerSnackbar } = useContext(GlobalContext);
 
     const handleQuerySubmit = () => {
         if(query !== ""){
             let splittedQuery = splitQueryToList(query);
-            console.log(splittedQuery)
             let [tableName, whereClause] = extractClause(splittedQuery);
-            
             setBackdropOpen(true);
+
+            /**
+             * Handle promise API calls from Github.
+             */
             fetchCSVData(tableName)
             .then((res)=>{
                 res = whereClauseFilter(res, whereClause);
@@ -29,6 +35,9 @@ const CodeController = ({ query, setQuery , setTableData, setRecentQuery }) => {
                     triggerSnackbar(3000, `${res.length} records fetched.`, "success", { vertical: 'bottom', horizontal: 'right' });
                     
                     setRecentQuery((prev)=>{
+                        /**
+                         * Check duplicates in recent query then inserting new one.
+                         */
                         if(prev.length > 0){
                             const lastElem = [...prev].pop();
                             if(lastElem === query) return [...prev];
@@ -51,6 +60,7 @@ const CodeController = ({ query, setQuery , setTableData, setRecentQuery }) => {
             triggerSnackbar(3000, "Please type any query, then execute.","error", { vertical: 'bottom', horizontal: 'right' });
         }
     }
+
     const handleQueryClear = () => {
         setQuery("");
     }

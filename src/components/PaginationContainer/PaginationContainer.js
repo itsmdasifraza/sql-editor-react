@@ -4,8 +4,9 @@ import './PaginationContainer.css';
 
 /**
  * Display pagination below output table.
- * @param {Array} table - An array of table objects used to slice into pagination.
- * @return {JSX.Element} MUI JSX pagination container element.
+ * @param {object} table - Stores table meta data and rows used to slice into pagination.
+ * @param {array} setSlicedTable - Sets sliced table rows containes only paginated rows that will actually visible on screen.
+ * @return {JSX.Element} Mui pagination container element.
 */
 
 const PaginationContainer = ({table , setSlicedTable}) => {
@@ -30,7 +31,9 @@ const PaginationContainer = ({table , setSlicedTable}) => {
         setPage(0);
     },[table]);
 
-    // Limit table data to fixed number of rows for pagination.
+    /**
+     * Store memoize value of sliced rows to prevent re-renders.
+     */
     const slicedTable = useMemo(() =>{
         return [...table.data].slice(
             page * rowsPerPage,
@@ -38,7 +41,9 @@ const PaginationContainer = ({table , setSlicedTable}) => {
         )
     }, [page, rowsPerPage, table]);
     
-    // Updating parent component sliced table 
+    /**
+     * Updating parent component's sliced table.
+     */
     useEffect(()=>{                  
         setSlicedTable(slicedTable);  
     },[slicedTable, setSlicedTable]);
