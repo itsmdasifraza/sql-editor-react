@@ -2,6 +2,11 @@ import React from 'react'
 import './Loader.css';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 
+/**
+ * Display temporary screen when SQL query not executed.
+ * @param {object} table - Stores table meta data and rows.
+ * @return {JSX.Element} JSX Component for initial screen load.
+*/
 const Loader = ({table}) => {
   return (
     <>{table.data && table.data.length === 0 ? 

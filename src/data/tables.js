@@ -1,3 +1,6 @@
+/**
+ * Pre defined sets of table.
+*/
 const tables = [ 
     "categories",
     "customers",
