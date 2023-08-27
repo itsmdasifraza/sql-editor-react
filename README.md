@@ -1,9 +1,9 @@
 ## SQL Editor React
 Create, design and implement a web-based application capable of running SQL queries and displaying the results of said query. The application must include a space which accepts SQL queries in the form of user inputs, then runs the given query, and displays the result within the application..
 
-<kbd>![sql-editor-react-io netlify app_(Nest Hub Max)](https://github.com/itsmdasifraza/sql-editor-react/assets/58258334/91d4174e-cb98-4516-a4f8-0e7fa3bf0b54)</kbd>
+<kbd>![sql-editor-react-io netlify app_(Nest Hub Max)](https://github.com/itsmdasifraza/sql-editor-react/assets/58258334/bdb72f7c-bcd4-45ea-8317-4f12d2f35819)</kbd>
 
-<kbd>![sql-editor-react-io netlify app_(Nest Hub Max) (1)](https://github.com/itsmdasifraza/sql-editor-react/assets/58258334/e8a67832-650c-4a58-81cf-affe56bc9a52)</kbd>
+<kbd>![sql-editor-react-io netlify app_(Nest Hub Max) (1)](https://github.com/itsmdasifraza/sql-editor-react/assets/58258334/4882c46d-3c38-4b9a-bed9-80a253d67588)</kbd>
 
 ### Features
 1. **Lazy Loading for Table Data**: The list of available tables is fetched during the initial load. However, the actual data for each table is not fetched until the user clicks on the respective table's name. This on-demand loading strategy minimizes the initial load time and enhances the user experience by only fetching and displaying data when it's required.
@@ -18,11 +18,11 @@ Create, design and implement a web-based application capable of running SQL quer
 
 1. [**GTmetrix**](https://gtmetrix.com/reports/sql-editor-react-io.netlify.app/FTBoW212/): Delivering a comprehensive performance analysis, GTmetrix assesses our website's speed, structure, and user experience, empowering us to optimize for optimal results.
 
-<kbd>![Screenshot (535)](https://github.com/itsmdasifraza/sql-editor-react/assets/58258334/d74b10fe-0108-412b-abc6-a1469e5799d3)</kbd>
+<kbd>![Screenshot (535)](https://github.com/itsmdasifraza/sql-editor-react/assets/58258334/c832f065-22bb-47d7-b452-b66d82463429)</kbd>
 
 2. [**PageSpeed Insights**](https://pagespeed.web.dev/analysis/https-sql-editor-react-io-netlify-app/5edkx2x64e?form_factor=desktop): Providing valuable insights into our website's performance, PageSpeed Insights offers actionable recommendations to enhance loading speed and user experience.
 
-<kbd>![Screenshot (536)](https://github.com/itsmdasifraza/sql-editor-react/assets/58258334/63fea084-4a50-443d-8fa7-107fdea3b7a7)</kbd>
+<kbd>![Screenshot (536)](https://github.com/itsmdasifraza/sql-editor-react/assets/58258334/c52a15ef-3d4d-4487-b146-2d4334db2b3e)</kbd>
 
 ### Optimizations
 1. **Dynamic Request**: An exceedingly effective optimization technique revolves around dynamic fetching. This strategy involves retrieving table rows solely upon user request, thereby circumventing unnecessary data load during the initial phase.
